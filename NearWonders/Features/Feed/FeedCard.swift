@@ -41,10 +41,14 @@ struct FeedCard: View {
                     Text(activity.date.formatted(date: .long, time: .omitted)).font(.footnote)
                 }
                 Spacer()
-                VStack(alignment: .trailing) {
-                    Image(systemName: saved ? "bookmark.fill": "bookmark").padding(.bottom, 2)
-                    Text((activity.bookmarks + (saved ? 1 : 0)).formatted()).font(.footnote)
-                }.onTapGesture { saved.toggle() }
+                Text((activity.bookmarks + (saved ? 1 : 0)).formatted())
+                    .font(.footnote)
+                    .onTapGesture { saved.toggle() }
+                    .foregroundColor(saved ? .blue : .black)
+                Image(systemName: saved ? "bookmark.fill": "bookmark")
+                    .padding(.bottom, 2)
+                    .onTapGesture { saved.toggle() }
+                    .foregroundColor(saved ? .blue : .black)
             }.padding(.horizontal).padding(.top, 8)
             
             ScrollView(.horizontal, showsIndicators: false) {

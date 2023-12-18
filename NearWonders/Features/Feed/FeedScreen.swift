@@ -17,11 +17,7 @@ struct FeedScreen: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack {
-                    ForEach(feeds) { item in
-                        FeedCard(activity: item)
-                    }
-                }
+                VStack { ForEach(feeds) { FeedCard(activity: $0) } }
             }
             .listStyle(.plain)
             .navigationTitle("Feed")
