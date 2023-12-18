@@ -14,7 +14,18 @@
 		692E0E222B2F552200EB65AD /* NearWondersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692E0E212B2F552200EB65AD /* NearWondersTests.swift */; };
 		692E0E2C2B2F552200EB65AD /* NearWondersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692E0E2B2B2F552200EB65AD /* NearWondersUITests.swift */; };
 		692E0E2E2B2F552200EB65AD /* NearWondersUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692E0E2D2B2F552200EB65AD /* NearWondersUITestsLaunchTests.swift */; };
-		692E0E3B2B2F556B00EB65AD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692E0E3A2B2F556B00EB65AD /* User.swift */; };
+		692E0E3D2B2F57C500EB65AD /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692E0E3C2B2F57C500EB65AD /* LoginScreen.swift */; };
+		692E0E3F2B2F5E3300EB65AD /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692E0E3E2B2F5E3300EB65AD /* HomeScreen.swift */; };
+		692E0E432B2F5E8900EB65AD /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692E0E422B2F5E8900EB65AD /* MapScreen.swift */; };
+		692E0E452B2F5EA600EB65AD /* FeedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692E0E442B2F5EA600EB65AD /* FeedScreen.swift */; };
+		692E0E472B2F60A500EB65AD /* FeedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692E0E462B2F60A500EB65AD /* FeedCard.swift */; };
+		69AD120F2B307D7C00C8594D /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AD120E2B307D7C00C8594D /* MockData.swift */; };
+		69AD12112B307DB400C8594D /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AD12102B307DB400C8594D /* Gender.swift */; };
+		69AD12142B307E1200C8594D /* FeedActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AD12132B307E1200C8594D /* FeedActivity.swift */; };
+		69B165DC2B3029F70083F82F /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B165DA2B3029F70083F82F /* Activity.swift */; };
+		69B165DD2B3029F70083F82F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B165DB2B3029F70083F82F /* User.swift */; };
+		69B165E72B303A030083F82F /* ActivityTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B165E62B303A030083F82F /* ActivityTag.swift */; };
+		69B165F42B304C120083F82F /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B165F32B304C120083F82F /* Color.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +57,18 @@
 		692E0E272B2F552200EB65AD /* NearWondersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NearWondersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		692E0E2B2B2F552200EB65AD /* NearWondersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearWondersUITests.swift; sourceTree = "<group>"; };
 		692E0E2D2B2F552200EB65AD /* NearWondersUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearWondersUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		692E0E3A2B2F556B00EB65AD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
+		692E0E3C2B2F57C500EB65AD /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
+		692E0E3E2B2F5E3300EB65AD /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		692E0E422B2F5E8900EB65AD /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
+		692E0E442B2F5EA600EB65AD /* FeedScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedScreen.swift; sourceTree = "<group>"; };
+		692E0E462B2F60A500EB65AD /* FeedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCard.swift; sourceTree = "<group>"; };
+		69AD120E2B307D7C00C8594D /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		69AD12102B307DB400C8594D /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
+		69AD12132B307E1200C8594D /* FeedActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedActivity.swift; sourceTree = "<group>"; };
+		69B165DA2B3029F70083F82F /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		69B165DB2B3029F70083F82F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		69B165E62B303A030083F82F /* ActivityTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTag.swift; sourceTree = "<group>"; };
+		69B165F32B304C120083F82F /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +119,14 @@
 		692E0E0E2B2F552100EB65AD /* NearWonders */ = {
 			isa = PBXGroup;
 			children = (
-				692E0E0F2B2F552100EB65AD /* NearWondersApp.swift */,
+				69B165ED2B304B7E0083F82F /* Core */,
+				69B165EA2B304B100083F82F /* Features */,
+				69B165EF2B304B9A0083F82F /* Presentation */,
 				692E0E112B2F552100EB65AD /* ContentView.swift */,
+				692E0E0F2B2F552100EB65AD /* NearWondersApp.swift */,
 				692E0E132B2F552200EB65AD /* Assets.xcassets */,
 				692E0E152B2F552200EB65AD /* NearWonders.entitlements */,
 				692E0E162B2F552200EB65AD /* Preview Content */,
-				692E0E3A2B2F556B00EB65AD /* User.swift */,
 			);
 			path = NearWonders;
 			sourceTree = "<group>";
@@ -132,6 +156,103 @@
 			path = NearWondersUITests;
 			sourceTree = "<group>";
 		};
+		69AD120D2B307D7100C8594D /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				69AD120E2B307D7C00C8594D /* MockData.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		69AD12122B307DFB00C8594D /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				69AD12132B307E1200C8594D /* FeedActivity.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		69B165D82B3029AD0083F82F /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				69AD12122B307DFB00C8594D /* Entities */,
+				692E0E462B2F60A500EB65AD /* FeedCard.swift */,
+				692E0E442B2F5EA600EB65AD /* FeedScreen.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		69B165D92B3029C70083F82F /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				692E0E422B2F5E8900EB65AD /* MapScreen.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		69B165DE2B3029FB0083F82F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				69B165DA2B3029F70083F82F /* Activity.swift */,
+				69B165DB2B3029F70083F82F /* User.swift */,
+				69AD12102B307DB400C8594D /* Gender.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		69B165E52B3039CB0083F82F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				69B165E62B303A030083F82F /* ActivityTag.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		69B165EA2B304B100083F82F /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				69B165F02B304BC60083F82F /* Login */,
+				69B165D92B3029C70083F82F /* Map */,
+				69B165D82B3029AD0083F82F /* Feed */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		69B165ED2B304B7E0083F82F /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				69AD120D2B307D7100C8594D /* Constants */,
+				69B165DE2B3029FB0083F82F /* Models */,
+				69B165EE2B304B860083F82F /* Extensions */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		69B165EE2B304B860083F82F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				69B165F32B304C120083F82F /* Color.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		69B165EF2B304B9A0083F82F /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				69B165E52B3039CB0083F82F /* Views */,
+				692E0E3E2B2F5E3300EB65AD /* HomeScreen.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		69B165F02B304BC60083F82F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				692E0E3C2B2F57C500EB65AD /* LoginScreen.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,6 +269,8 @@
 			dependencies = (
 			);
 			name = NearWonders;
+			packageProductDependencies = (
+			);
 			productName = NearWonders;
 			productReference = 692E0E0C2B2F552100EB65AD /* NearWonders.app */;
 			productType = "com.apple.product-type.application";
@@ -220,6 +343,8 @@
 				Base,
 			);
 			mainGroup = 692E0E032B2F552100EB65AD;
+			packageReferences = (
+			);
 			productRefGroup = 692E0E0D2B2F552100EB65AD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -262,9 +387,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69B165DC2B3029F70083F82F /* Activity.swift in Sources */,
+				69AD120F2B307D7C00C8594D /* MockData.swift in Sources */,
 				692E0E122B2F552100EB65AD /* ContentView.swift in Sources */,
+				692E0E3F2B2F5E3300EB65AD /* HomeScreen.swift in Sources */,
+				692E0E432B2F5E8900EB65AD /* MapScreen.swift in Sources */,
+				69B165F42B304C120083F82F /* Color.swift in Sources */,
+				692E0E3D2B2F57C500EB65AD /* LoginScreen.swift in Sources */,
+				69B165DD2B3029F70083F82F /* User.swift in Sources */,
+				69AD12112B307DB400C8594D /* Gender.swift in Sources */,
 				692E0E102B2F552100EB65AD /* NearWondersApp.swift in Sources */,
-				692E0E3B2B2F556B00EB65AD /* User.swift in Sources */,
+				692E0E452B2F5EA600EB65AD /* FeedScreen.swift in Sources */,
+				69B165E72B303A030083F82F /* ActivityTag.swift in Sources */,
+				69AD12142B307E1200C8594D /* FeedActivity.swift in Sources */,
+				692E0E472B2F60A500EB65AD /* FeedCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +560,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearWonders/Preview Content\"";
+				DEVELOPMENT_TEAM = XM7628949A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -434,14 +571,13 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = zephyr.NearWonders;
+				PRODUCT_BUNDLE_IDENTIFIER = "co.zephyr.near-wonders";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -460,6 +596,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NearWonders/Preview Content\"";
+				DEVELOPMENT_TEAM = XM7628949A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -470,14 +607,13 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = zephyr.NearWonders;
+				PRODUCT_BUNDLE_IDENTIFIER = "co.zephyr.near-wonders";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";

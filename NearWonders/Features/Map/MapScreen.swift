@@ -1,18 +1,20 @@
 //
-//  ContentView.swift
+//  MapScreen.swift
 //  NearWonders
 //
 //  Created by Jay Thakur on 17/12/23.
 //
 
 import SwiftUI
+import MapKit
 
-struct ContentView: View {
+struct MapScreen: View {
     var body: some View {
-        HomeScreen()
+        Map(interactionModes: .all)
+        
     }
 }
 
 #Preview {
-    ContentView()
+    MapScreen()
 }
