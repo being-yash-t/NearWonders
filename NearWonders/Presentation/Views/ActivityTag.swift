@@ -32,5 +32,5 @@ struct ActivityTag: View {
 }
 
 #Preview {
-    ActivityTag(activity: exampleActivity1)
+    ActivityTag(activity: trekkingActivity)
 }

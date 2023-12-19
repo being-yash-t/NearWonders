@@ -8,23 +8,19 @@
 import SwiftUI
 
 struct FeedScreen: View {
-    let feeds = [
-        exampleFeedActivity,
-        sunsetBeachActivity,
-        mountainHikeActivity,
-    ]
+    @Binding var data: [LocationActivity]
+    @Binding var selectedLocation: LocationActivity?
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack { ForEach(feeds) { FeedCard(activity: $0) } }
-            }
-            .listStyle(.plain)
-            .navigationTitle("Feed")
+        ScrollView {
+            // TODO: More efficent way for displaying for large data
+            // TODO: automatically animate to selectedLocation
+            LazyVStack { ForEach(data) { FeedCard(activity: $0) } }
         }
+        .listStyle(.plain)
     }
 }
 
-#Preview {
-    FeedScreen()
-}
+//#Preview {
+//    FeedScreen(data: Binding(get: mockLocationActivities, set: { _ in }))
+//}

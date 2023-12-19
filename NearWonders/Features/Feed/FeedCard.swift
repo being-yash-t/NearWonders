@@ -8,31 +8,16 @@
 import SwiftUI
 
 struct FeedCard: View {
-    let activity: FeedActivity
+    let activity: LocationActivity
     @State var saved = false
     
     var body: some View {
-        let imageCarousel = HStack(spacing: 16) {
-            ForEach(activity.images.sorted(), id: \.self) { item in
-                AsyncImage(url: URL(string: item)) { image in
-                    if (image.image == nil && image.error  == nil) {
-                        ZStack {
-                            Color.black.opacity(0.1)
-                            Text("Loading")
-                        }
-                    } else if (image.error != nil) {
-                        Image(systemName: "xmark.circle").foregroundColor(.yellow)
-                    }
-                    else { image.image!.resizable().scaledToFill() }
-                }
-                .frame(width: 200, height: 200)
-                .clipShape(.rect(cornerRadius: 16))
-            }
-        }
         
         VStack(alignment: .leading) {
             ScrollView(.horizontal, showsIndicators: false) {
-                imageCarousel.padding([.horizontal, .top])
+                HStack(spacing: 16) {
+                    ForEach(activity.images.sorted(), id: \.self) { ImagePreview(imageUrl: $0) }
+                }.padding(.horizontal)
             }
             
             HStack {
@@ -57,10 +42,10 @@ struct FeedCard: View {
                         ActivityTag(activity: $0)
                     }
                 }.padding([.horizontal])
-            }.padding([.bottom])
+            }
         }
         .background(.white)
-        .clipShape(.rect(cornerRadius: 16))
+        .padding(.bottom)
 //        .shadow(color: .black.opacity(0.1), radius: 20)
 //        .padding(.horizontal)
 //        .padding(.vertical, 8)
@@ -68,6 +53,7 @@ struct FeedCard: View {
 }
 
 #Preview {
-    FeedCard(activity: exampleFeedActivity)
+    FeedCard(activity: mockLocationActivity3)
 }
+
 

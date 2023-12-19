@@ -9,42 +9,31 @@ import SwiftUI
 import MapKit
 
 struct MapScreen: View {
-    let backwaters = CLLocationCoordinate2D(latitude: 20.020683, longitude: 73.671559)
-    let alandiDam = CLLocationCoordinate2D(latitude: 20.114213, longitude: 73.689662)
-    let images = exampleFeedActivity.images.sorted()
-    
+    @Binding var data: [LocationActivity]
+    @Binding var selectedLocation: LocationActivity?
     @State var camera: MapCameraPosition = .automatic
-    @State var selectedLocation: String?
-    
     
     var body: some View {
         Map(position: $camera, interactionModes: [.pan, .pitch, .zoom]) {
-            Annotation("BackWaters", coordinate: backwaters) {
-                CImage(images[0]) {
-                    selectedLocation = "Backwaters"
-                    camera = .region(MKCoordinateRegion(
-                        center: backwaters,
-                        latitudinalMeters: 200,
-                        longitudinalMeters: 200
-                    ))
-                }
-            }
-            Annotation("Alandi Dam", coordinate: alandiDam) {
-                CImage(images[1]) {
-                    selectedLocation = "Alandi Dam"
-                    camera = .region(MKCoordinateRegion(
-                        center: alandiDam,
-                        latitudinalMeters: 200,
-                        longitudinalMeters: 200
-                    ))
+            ForEach(data) { item in
+                Annotation(item.title, coordinate: item.location.coordinates) {
+                    // TODO: add placeholder
+                    CImage((item.images.count < 1 ? "" : item.images.first!)) {
+                        selectedLocation = item
+                        camera = .region(MKCoordinateRegion(
+                            center: item.location.coordinates,
+                            latitudinalMeters: 200,
+                            longitudinalMeters: 200
+                        ))
+                    }
                 }
             }
         }
-        .safeAreaInset(edge: .top, content: {
+        .safeAreaInset(edge: .bottom, content: {
             if selectedLocation != nil {
                 HStack {
                     Spacer()
-                    Text(selectedLocation!)
+                    Text(selectedLocation!.title)
                     Spacer()
                 }
                 .padding()
@@ -76,6 +65,6 @@ struct CImage: View {
     }
 }
 
-#Preview {
-    MapScreen()
-}
+//#Preview {
+//    MapScreen()
+//}
