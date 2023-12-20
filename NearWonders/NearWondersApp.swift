@@ -11,7 +11,7 @@ import SwiftUI
 struct NearWondersApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeScreen()
         }
     }
 }
