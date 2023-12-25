@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Season: String, Identifiable {
+enum Season: String, Identifiable, CaseIterable {
     case Summer
     case Winter
     case Spring
@@ -56,9 +56,3 @@ enum Season: String, Identifiable {
     
 }
 
-let allSeasons: [Season] = [
-    Season.Summer,
-    Season.Winter,
-    Season.Spring,
-    Season.Autumn
-]

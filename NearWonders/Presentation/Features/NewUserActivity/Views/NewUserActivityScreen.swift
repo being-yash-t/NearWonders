@@ -13,8 +13,8 @@ private let previewImageSize: CGFloat = 150
 struct NewUserActivityScreen: View {
     @State var images: Set<String> = []
     @State var description: String = ""
-    @State var activities: [Activity] = []
-    @State var seasons: [Season] = []
+    @State var userActivities: [Activity] = []
+    @State var location: Location?
     
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.dismiss) var dismiss
@@ -28,12 +28,15 @@ struct NewUserActivityScreen: View {
                         .frame(height: 150)
                         .clipShape(.rect(cornerRadius: 16))
                         .padding([.bottom, .horizontal])
+                        .if(location == nil) { view in
+                            NavigationLink(destination: NewLocationScreen(location: nil)) { view }
+                        }
                     
                     Text("Pictures").font(.headline).padding([.horizontal])
                     ImageUploader(images: $images)
                         .padding(.bottom)
                     
-                    Text("Activities").font(.headline).padding([.horizontal])
+                    Text("What activities did you perform?").font(.headline).padding([.horizontal])
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack { ForEach(mockActivities) { item in
                             SelectableTag(
@@ -41,46 +44,27 @@ struct NewUserActivityScreen: View {
                                 title: item.name,
                                 color: Color(rgb: item.rgbColor),
                                 selected: Binding(get: {
-                                    activities.contains(item)
+                                    userActivities.contains(item)
                                 }, set: { value in
                                     if value {
-                                        activities.append(item)
+                                        userActivities.append(item)
                                     } else {
-                                        activities.remove(at: activities.firstIndex(of: item)!)
+                                        userActivities.remove(at: userActivities.firstIndex(of: item)!)
                                     }
                                 })
-                                
                             )
                         } }.padding([.bottom, .horizontal])
                     }
                     
-                    Text("Best Seasons to Visit").font(.subheadline).padding([.horizontal])
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack { ForEach(allSeasons, id: \.self) { item in
-                            SelectableTag(
-                                systemImage: item.icon,
-                                title: item.name,
-                                color: Color(rgb: item.rgbColor),
-                                selected: Binding(get: {
-                                    seasons.contains(item)
-                                }, set: { value in
-                                    if value {
-                                        seasons.append(item)
-                                    } else {
-                                        seasons.remove(at: seasons.firstIndex(of: item)!)
-                                    }
-                                })
-                                
-                            )
-                        }
-                        }.padding([.horizontal, .bottom])
-                    }
-                    
-                    Text("Description").font(.subheadline).padding([.horizontal])
-                    TextField("What is this place about?", text: $description, axis: .vertical)
-                        .lineLimit(3...10)
-                        .textFieldStyle(.roundedBorder)
-                        .padding([.bottom, .horizontal])
+                    Text("What are your thoughts?").font(.subheadline).padding([.horizontal])
+                    TextField("What was that you enjoyed the most?" +
+                              "\nAnything you didn't like or are guilty about?",
+                              text: $description,
+                              axis: .vertical
+                    )
+                    .lineLimit(3...10)
+                    .textFieldStyle(.roundedBorder)
+                    .padding([.bottom, .horizontal])
                 }
             }
             .navigationTitle("New Activity")
