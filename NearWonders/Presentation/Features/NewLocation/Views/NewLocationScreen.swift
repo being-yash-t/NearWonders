@@ -10,18 +10,32 @@ import MapKit
 
 struct NewLocationScreen: View {
     @State var location: Location?
-    @State var bottomVisible = false
     
-    @State var activities: [Activity] = []
-    @State var seasons: [Season] = []
+    @State private var bottomVisible = false
+    @State private var activities: [Activity] = []
+    @State private var seasons: [Season] = []
+    @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            Map(interactionModes: .all) {
-                if location != nil {
-                    Marker(location!.title ?? "You Spot :)", coordinate: location!.coordinates)
+            MapReader { reader in
+                Map(position: $cameraPosition, interactionModes: .all) {
+                    if location != nil {
+                        Marker(location!.title ?? "You Spot :)", coordinate: location!.coordinates)
+                    }
+                }
+                .onTapGesture { screenCoord in
+                    if let pinLocation = reader.convert(screenCoord, from: .local) {
+                        withAnimation {
+                            location = Location(title: nil, lat: pinLocation.latitude, long: pinLocation.longitude)
+                            cameraPosition = .region(.init(center: pinLocation, latitudinalMeters: 1000, longitudinalMeters: 1000))
+                            bottomVisible = true
+                        }
+                    } else {
+                        debugPrint("Unknown error while converting point")
+                    }
                 }
             }
             .navigationTitle("Location")
@@ -39,11 +53,13 @@ struct NewLocationScreen: View {
                     }
                     .disabled(bottomVisible ? false : location == nil)
                 }
-            }
-            
-            if bottomVisible {
+            }.tabSheet(showSheet: $bottomVisible, initialHeight: 180) {
                 BottomView(activities: $activities, seasons: $seasons)
             }
+            
+//            if bottomVisible {
+//                BottomView(activities: $activities, seasons: $seasons)
+//            }
         }
     }
 }
@@ -96,7 +112,7 @@ private struct BottomView: View {
                     }
                 }.padding([.horizontal, .bottom])
             }
-        }.background(.ultraThickMaterial)
+        }
     }
 }
 

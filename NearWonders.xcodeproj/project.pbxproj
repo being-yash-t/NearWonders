@@ -27,6 +27,7 @@
 		692E0E452B2F5EA600EB65AD /* FeedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692E0E442B2F5EA600EB65AD /* FeedScreen.swift */; };
 		692E0E472B2F60A500EB65AD /* FeedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692E0E462B2F60A500EB65AD /* FeedCard.swift */; };
 		697066482B32B7130042431E /* NewLocationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697066472B32B7130042431E /* NewLocationScreen.swift */; };
+		699D99F72B3C59EE00B8879C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699D99F62B3C59EE00B8879C /* LocationManager.swift */; };
 		69AD120F2B307D7C00C8594D /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AD120E2B307D7C00C8594D /* MockData.swift */; };
 		69AD12112B307DB400C8594D /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AD12102B307DB400C8594D /* Gender.swift */; };
 		69B165DC2B3029F70083F82F /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B165DA2B3029F70083F82F /* Activity.swift */; };
@@ -77,6 +78,8 @@
 		692E0E442B2F5EA600EB65AD /* FeedScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedScreen.swift; sourceTree = "<group>"; };
 		692E0E462B2F60A500EB65AD /* FeedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCard.swift; sourceTree = "<group>"; };
 		697066472B32B7130042431E /* NewLocationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLocationScreen.swift; sourceTree = "<group>"; };
+		699D99F62B3C59EE00B8879C /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		699D99F82B3C62BB00B8879C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		69AD120E2B307D7C00C8594D /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		69AD12102B307DB400C8594D /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		69B165DA2B3029F70083F82F /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
@@ -142,6 +145,8 @@
 		692E0E0E2B2F552100EB65AD /* NearWonders */ = {
 			isa = PBXGroup;
 			children = (
+				699D99F82B3C62BB00B8879C /* Info.plist */,
+				699D99F52B3C59DF00B8879C /* Utils */,
 				69AD120D2B307D7100C8594D /* Constants */,
 				69B165EE2B304B860083F82F /* Extensions */,
 				697066352B31FFBA0042431E /* Data */,
@@ -323,6 +328,14 @@
 			children = (
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		699D99F52B3C59DF00B8879C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				699D99F62B3C59EE00B8879C /* LocationManager.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		69AD120D2B307D7100C8594D /* Constants */ = {
@@ -550,6 +563,7 @@
 				6914C7832B318F8B002C4696 /* View.swift in Sources */,
 				692E0E3D2B2F57C500EB65AD /* LoginScreen.swift in Sources */,
 				69B165DD2B3029F70083F82F /* User.swift in Sources */,
+				699D99F72B3C59EE00B8879C /* LocationManager.swift in Sources */,
 				69AD12112B307DB400C8594D /* Gender.swift in Sources */,
 				692E0E102B2F552100EB65AD /* NearWondersApp.swift in Sources */,
 				692E0E452B2F5EA600EB65AD /* FeedScreen.swift in Sources */,
@@ -719,6 +733,7 @@
 				DEVELOPMENT_TEAM = XM7628949A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NearWonders/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -755,6 +770,7 @@
 				DEVELOPMENT_TEAM = XM7628949A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NearWonders/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

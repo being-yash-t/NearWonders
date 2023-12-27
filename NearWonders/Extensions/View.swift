@@ -20,4 +20,36 @@ extension View {
             self
         }
     }
+    
+    @ViewBuilder func tabSheet<SheetContent: View>(
+        showSheet: Binding<Bool>,
+        initialHeight: CGFloat = 100,
+        otherDetents: Set<PresentationDetent> = [],
+        @ViewBuilder content: @escaping () -> SheetContent
+    ) -> some View {
+        self.modifier(BottomSheetModifier(
+            initialHeight: initialHeight,
+            sheetView: content(),
+            otherDetents: otherDetents,
+            showSheet: showSheet
+        ))
+    }
+}
+
+fileprivate struct BottomSheetModifier<SheetContent: View>: ViewModifier {
+    var initialHeight: CGFloat
+    var sheetView: SheetContent
+    var otherDetents: Set<PresentationDetent>
+    
+    @Binding var showSheet: Bool
+    
+    func body(content: Content) -> some View {
+        let heightDetent: Set<PresentationDetent> = [PresentationDetent.height(initialHeight)]
+        return content.sheet(isPresented: $showSheet, content: {
+            sheetView
+                .presentationDetents(heightDetent.union(otherDetents))
+                .presentationBackgroundInteraction(.enabled(upThrough: .height(initialHeight)))
+//                .interactiveDismissDisabled()
+        })
+    }
 }

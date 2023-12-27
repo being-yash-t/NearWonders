@@ -30,8 +30,10 @@ struct NewUserActivityScreen: View {
                         .padding([.bottom, .horizontal])
                         .if(location == nil) { view in
                             NavigationLink(destination: NewLocationScreen(location: nil)) { view }
+                                .simultaneousGesture(TapGesture().onEnded({
+                                    LocationManager.shared.requestLocationAuthorization()
+                                }))
                         }
-                    
                     Text("Pictures").font(.headline).padding([.horizontal])
                     ImageUploader(images: $images)
                         .padding(.bottom)

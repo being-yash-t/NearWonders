@@ -18,7 +18,7 @@ struct HomeScreen: View {
     @State var newUserActivityVisible = false
     
     var body: some View {
-        let view = mapView 
+        let view = mapView
         ? AnyView(MapScreen(data: $data, selectedLocation: $selectedLocation))
         : AnyView(FeedScreen(data: $data, selectedLocation: $selectedLocation))
         
