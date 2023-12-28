@@ -10,6 +10,7 @@ import MapKit.MKTypes
 
 struct Location {
     let title: String?
+    let description: String?
     let lat: CLLocationDegrees
     let long: CLLocationDegrees
     
@@ -20,14 +21,24 @@ struct Location {
     
     init(lat: CLLocationDegrees, long: CLLocationDegrees) {
         self.title = nil
+        self.description = nil
         self.lat = lat
         self.long = long
     }
     
-    init(title: String?, lat: CLLocationDegrees, long: CLLocationDegrees) {
+    init(title: String?, description: String?, lat: CLLocationDegrees, long: CLLocationDegrees) {
         self.title = title
+        self.description = description
         self.lat = lat
         self.long = long
     }
+    
+    init(title: String?, description: String?, coordinates: CLLocationCoordinate2D) {
+        self.title = title
+        self.description = description
+        self.lat = coordinates.latitude
+        self.long = coordinates.longitude
+    }
+    
 }
 

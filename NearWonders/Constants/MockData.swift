@@ -33,6 +33,7 @@ let mockLocationActivity1 = LocationActivity(
     activities: [campingActivity],
     location: Location(
         title: "GQW4+XWP, Near Ghoti Tal Akole, Dist. Ahamednagar, Maharashtra 422604",
+        description: nil,
         lat: 19.54738325316985,
         long: 73.7573012385777
     )
@@ -54,6 +55,7 @@ let mockLocationActivity2 = LocationActivity(
     ],
     location: Location(
         title: "Maharashtra",
+        description: nil,
         lat: 15.968600491744272,
         long: 73.5008954023122
     )
@@ -74,6 +76,7 @@ let mockLocationActivity3 = LocationActivity(
     ],
     location: Location(
         title: "9QPH+H6 Diwanpada, Maharashtra",
+        description: nil,
         lat: 15.968600491744272,
         long: 73.5008954023122
     )

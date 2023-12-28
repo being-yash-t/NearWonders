@@ -9,7 +9,9 @@ import SwiftUI
 import MapKit
 
 struct NewLocationScreen: View {
-    @State var location: Location?
+    @State var name: String = ""
+    @State var description: String = ""
+    @State var location: CLLocationCoordinate2D?
     
     @State private var bottomVisible = false
     @State private var activities: [Activity] = []
@@ -18,18 +20,24 @@ struct NewLocationScreen: View {
     
     @Environment(\.presentationMode) var presentationMode
     
+    var onComplete: (_: Location) -> Void
+    
+    var validateFrom: Bool {
+        !name.isEmpty && !activities.isEmpty && !seasons.isEmpty
+    }
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             MapReader { reader in
                 Map(position: $cameraPosition, interactionModes: .all) {
                     if location != nil {
-                        Marker(location!.title ?? "You Spot :)", coordinate: location!.coordinates)
+                        Marker(name.isEmpty ? "You Spot :)" : name, coordinate: location!)
                     }
                 }
                 .onTapGesture { screenCoord in
                     if let pinLocation = reader.convert(screenCoord, from: .local) {
                         withAnimation {
-                            location = Location(title: nil, lat: pinLocation.latitude, long: pinLocation.longitude)
+                            location = pinLocation
                             cameraPosition = .region(.init(center: pinLocation, latitudinalMeters: 1000, longitudinalMeters: 1000))
                             bottomVisible = true
                         }
@@ -38,28 +46,39 @@ struct NewLocationScreen: View {
                     }
                 }
             }
+            .mapStyle(.hybrid)
             .navigationTitle("Location")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Next") {
+                    Button(bottomVisible ? "Done" : "Next") {
                         if bottomVisible {
+                            onComplete(Location(title: name, description: description, coordinates: location!))
                             presentationMode.wrappedValue.dismiss()
                         } else {
                             withAnimation {
-                                    bottomVisible.toggle()
+                                bottomVisible.toggle()
                             }
                         }
                     }
-                    .disabled(bottomVisible ? false : location == nil)
+                    .disabled(bottomVisible ? !validateFrom : location == nil)
                 }
-            }.tabSheet(showSheet: $bottomVisible, initialHeight: 180) {
-                BottomView(activities: $activities, seasons: $seasons)
             }
+            .overlay(
+                VStack {
+                    Spacer()
+                    BottomView(
+                        activities: $activities,
+                        seasons: $seasons,
+                        showSheet: $bottomVisible,
+                        name: $name,
+                        description: $description
+                    )
+                    .offset(y: bottomVisible ? 0 : 500)
+                    .animation(.easeInOut(duration: 0.3), value: bottomVisible)
+                }
+            )
             
-//            if bottomVisible {
-//                BottomView(activities: $activities, seasons: $seasons)
-//            }
         }
     }
 }
@@ -67,10 +86,24 @@ struct NewLocationScreen: View {
 private struct BottomView: View {
     @Binding var activities: [Activity]
     @Binding var seasons: [Season]
+    @Binding var showSheet: Bool
+    @Binding var name: String
+    @Binding var description: String
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Activities").font(.headline).padding([.horizontal, .top])
+            HStack {
+                Text("Activities available").font(.headline)
+                Spacer()
+                Button {
+                        showSheet.toggle()
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .imageScale(.large)
+                        .foregroundStyle(.gray, Color(.systemGray6))
+                }
+            }.padding([.horizontal, .top])
+            
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack { ForEach(mockActivities) { item in
                     SelectableTag(
@@ -112,12 +145,27 @@ private struct BottomView: View {
                     }
                 }.padding([.horizontal, .bottom])
             }
+            
+            Text("Name").font(.subheadline).padding([.horizontal])
+            TextField("Name of the Spot", text: $name, axis: .vertical)
+                .lineLimit(1...2)
+                .textFieldStyle(.roundedBorder)
+                .padding([.bottom, .horizontal])
+            
+            Text("Description").font(.subheadline).padding([.horizontal])
+            TextField("What is this place about?" +
+                      "\nWhat's nearby?", text: $description, axis: .vertical)
+                .lineLimit(2...10)
+                .textFieldStyle(.roundedBorder)
+                .padding([.bottom, .horizontal])
         }
+//        .safeAreaPadding(.bottom)
+        .background(.ultraThickMaterial)
     }
 }
 
 #Preview {
     NavigationView {
-        NewLocationScreen(location: nil)
+        NewLocationScreen(location: nil,onComplete: { _ in })
     }
 }

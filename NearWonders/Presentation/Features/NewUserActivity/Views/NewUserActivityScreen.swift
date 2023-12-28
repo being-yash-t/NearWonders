@@ -24,16 +24,32 @@ struct NewUserActivityScreen: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     Text("Location").font(.headline).padding([.horizontal, .top])
-                    Map(interactionModes: [.pitch, .zoom])
+                    NavigationLink(destination: NewLocationScreen(
+                        name: location?.title ?? "",
+                        description: location?.description ?? "",
+                        location: location?.coordinates,
+                        onComplete: { location = $0 }
+                    )) {
+                        Map(interactionModes: [.pitch, .zoom]) {
+                            if location != nil {
+                                if images.isEmpty {
+                                    Marker(location!.title!, coordinate: location!.coordinates)
+                                } else {
+                                    Annotation(location!.title!, coordinate: location!.coordinates) {
+                                        CImage((images.first!))
+                                    }
+                                }
+                            }
+                        }
+                        .mapStyle(.imagery)
                         .frame(height: 150)
                         .clipShape(.rect(cornerRadius: 16))
                         .padding([.bottom, .horizontal])
-                        .if(location == nil) { view in
-                            NavigationLink(destination: NewLocationScreen(location: nil)) { view }
-                                .simultaneousGesture(TapGesture().onEnded({
-                                    LocationManager.shared.requestLocationAuthorization()
-                                }))
-                        }
+                    }
+                    .simultaneousGesture(TapGesture().onEnded({
+                        LocationManager.shared.requestLocationAuthorization()
+                    }))
+                    
                     Text("Pictures").font(.headline).padding([.horizontal])
                     ImageUploader(images: $images)
                         .padding(.bottom)
@@ -60,7 +76,7 @@ struct NewUserActivityScreen: View {
                     
                     Text("What are your thoughts?").font(.subheadline).padding([.horizontal])
                     TextField("What was that you enjoyed the most?" +
-                              "\nAnything you didn't like or are guilty about?",
+                              "\nAnything that you didn't expect?",
                               text: $description,
                               axis: .vertical
                     )

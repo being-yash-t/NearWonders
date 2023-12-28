@@ -23,8 +23,8 @@ extension View {
     
     @ViewBuilder func tabSheet<SheetContent: View>(
         showSheet: Binding<Bool>,
-        initialHeight: CGFloat = 100,
         otherDetents: Set<PresentationDetent> = [],
+        initialHeight: CGFloat? = nil,
         @ViewBuilder content: @escaping () -> SheetContent
     ) -> some View {
         self.modifier(BottomSheetModifier(
@@ -37,19 +37,19 @@ extension View {
 }
 
 fileprivate struct BottomSheetModifier<SheetContent: View>: ViewModifier {
-    var initialHeight: CGFloat
+    var initialHeight: CGFloat?
     var sheetView: SheetContent
     var otherDetents: Set<PresentationDetent>
     
     @Binding var showSheet: Bool
     
     func body(content: Content) -> some View {
-        let heightDetent: Set<PresentationDetent> = [PresentationDetent.height(initialHeight)]
-        return content.sheet(isPresented: $showSheet, content: {
+        let initialDetent: Set<PresentationDetent> = [initialHeight != nil ? PresentationDetent.height(initialHeight!) : .medium]
+        return content.sheet(isPresented: $showSheet) {
             sheetView
-                .presentationDetents(heightDetent.union(otherDetents))
-                .presentationBackgroundInteraction(.enabled(upThrough: .height(initialHeight)))
+                .presentationDetents(initialDetent.union(otherDetents))
+                .presentationBackgroundInteraction(.enabled(upThrough: initialDetent.first!))
 //                .interactiveDismissDisabled()
-        })
+        }
     }
 }
