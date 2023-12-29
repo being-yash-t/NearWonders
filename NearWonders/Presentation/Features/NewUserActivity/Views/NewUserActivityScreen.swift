@@ -33,9 +33,9 @@ struct NewUserActivityScreen: View {
                         Map(interactionModes: [.pitch, .zoom]) {
                             if location != nil {
                                 if images.isEmpty {
-                                    Marker(location!.title!, coordinate: location!.coordinates)
+                                    Marker(location!.title, coordinate: location!.coordinates)
                                 } else {
-                                    Annotation(location!.title!, coordinate: location!.coordinates) {
+                                    Annotation(location!.title, coordinate: location!.coordinates) {
                                         CImage((images.first!))
                                     }
                                 }

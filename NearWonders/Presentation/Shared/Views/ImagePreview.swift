@@ -10,10 +10,12 @@ import SwiftUI
 struct ImagePreview: View {
     let imageUrl: String
     let size: CGFloat
+    let cornerRadius: CGFloat
     
-    init(imageUrl: String, size: CGFloat = 200) {
+    init(imageUrl: String, size: CGFloat = 200, cornerRadius: CGFloat = 16) {
         self.imageUrl = imageUrl
         self.size = size
+        self.cornerRadius = cornerRadius
     }
     
     var body: some View {
@@ -29,7 +31,7 @@ struct ImagePreview: View {
             else { image.image!.resizable().scaledToFill() }
         }
         .frame(width: size, height: size)
-        .clipShape(.rect(cornerRadius: 16))
+        .clipShape(.rect(cornerRadius: cornerRadius))
     }
 }
 
