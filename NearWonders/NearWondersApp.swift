@@ -10,12 +10,9 @@ import SwiftUI
 @main
 struct NearWondersApp: App {
     
-    init() {
-        LocationManager.shared.requestLocationAuthorization()
-    }
     var body: some Scene {
         WindowGroup {
-            HomeScreen()
+            HomeScreen().onAppear { LocationManager.shared.requestLocationAuthorization() }
         }
     }
 }

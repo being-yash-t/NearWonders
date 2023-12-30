@@ -18,7 +18,7 @@ struct NewLocationScreen: View {
     @State private var seasons: [Season] = []
     @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     var onComplete: (_: Location) -> Void
     
@@ -60,7 +60,7 @@ struct NewLocationScreen: View {
                                 activities: activities,
                                 bestSeasons: seasons
                             ))
-                            presentationMode.wrappedValue.dismiss()
+                            dismiss()
                         } else {
                             withAnimation {
                                 bottomVisible.toggle()
