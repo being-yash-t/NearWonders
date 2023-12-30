@@ -9,18 +9,18 @@ import SwiftUI
 import MapKit
 
 struct MapScreen: View {
-    @Binding var data: [LocationActivity]
-    @Binding var selectedLocation: LocationActivity?
+    @Binding var data: [LocationSummary]
+    @Binding var selectedLocation: LocationSummary?
     @State var camera: MapCameraPosition = .automatic
     
     var body: some View {
         Map(position: $camera, interactionModes: [.pan, .pitch, .zoom]) {
             ForEach(data) { item in
-                Annotation(item.title, coordinate: item.location.coordinates) {
+                Annotation(item.title, coordinate: item.locationCoordinates.coordinates) {
                     CImage((item.images.count < 1 ? "" : item.images.first!)) {
                         selectedLocation = item
                         camera = .region(MKCoordinateRegion(
-                            center: item.location.coordinates,
+                            center: item.locationCoordinates.coordinates,
                             latitudinalMeters: 200,
                             longitudinalMeters: 200
                         ))

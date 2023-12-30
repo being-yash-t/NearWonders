@@ -7,20 +7,36 @@
 
 import Foundation
 
+enum LocationDetailsTab: CaseIterable {
+    case overview
+    case feed
+    case pictures
+    
+    var name: String {
+        switch (self) {
+        case .overview:
+            "Overview"
+        case .feed:
+            "Feed"
+        case .pictures:
+            "Pictures"
+        }
+    }
+}
+
 class LocationDetailsViewModel: ObservableObject {
     @Published var details: LocationDetails?
     
-    init() {}
+    @Published var selectedTab: LocationDetailsTab = .overview
     
-    func loadDetails(for location: Location) {
+    init(loadFor location: LocationSummary) {
         details = LocationDetails(
             title: location.title,
-            description: location.description,
-            lat: location.lat,
-            long: location.long,
+            description: "Test Description",
+            locationCoordinates: location.locationCoordinates,
             activities: [campingActivity, ridingActivity],
             bestSeasons: [Season.Spring, Season.Autumn],
-            previewImages: mockLocationActivity1.images
+            previewImages: mockLocationSummary1.images
         )
     }
 }

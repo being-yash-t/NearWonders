@@ -6,19 +6,13 @@
 //
 
 import Foundation
-import MapKit.MKTypes
 
 struct LocationDetails {
     let title: String
     let description: String?
-    let lat: CLLocationDegrees
-    let long: CLLocationDegrees
+    let locationCoordinates: LocationCoordinates
     
     let activities: [Activity]
     let bestSeasons: [Season]
     let previewImages: Set<String>
-    
-    var coordinates: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(latitude: lat, longitude: long)
-    }
 }

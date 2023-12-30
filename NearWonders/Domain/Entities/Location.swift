@@ -2,36 +2,35 @@
 //  Location.swift
 //  NearWonders
 //
-//  Created by Jay Thakur on 19/12/23.
+//  Created by Jay Thakur on 30/12/23.
 //
 
 import Foundation
-import MapKit.MKTypes
 
 struct Location {
+    let id: String?
     let title: String
-    let description: String?
-    let lat: CLLocationDegrees
-    let long: CLLocationDegrees
+    let description: String
+    let locationCoordinates: LocationCoordinates
     
-    var coordinates: CLLocationCoordinate2D {CLLocationCoordinate2D(
-        latitude: lat,
-        longitude: long
-    )}
+    let activities: [Activity]
+    let bestSeasons: [Season]
     
-    init(title: String, description: String?, lat: CLLocationDegrees, long: CLLocationDegrees) {
+    init(title: String, description: String, locationCoordinates: LocationCoordinates, activities: [Activity], bestSeasons: [Season]) {
+        self.id = nil
         self.title = title
         self.description = description
-        self.lat = lat
-        self.long = long
+        self.locationCoordinates = locationCoordinates
+        self.activities = activities
+        self.bestSeasons = bestSeasons
     }
     
-    init(title: String, description: String?, coordinates: CLLocationCoordinate2D) {
+    init(id: String?, description: String, title: String, locationCoordinates: LocationCoordinates, activities: [Activity], bestSeasons: [Season]) {
+        self.id = id
         self.title = title
         self.description = description
-        self.lat = coordinates.latitude
-        self.long = coordinates.longitude
+        self.locationCoordinates = locationCoordinates
+        self.activities = activities
+        self.bestSeasons = bestSeasons
     }
-    
 }
-

@@ -9,11 +9,11 @@ import SwiftUI
 
 struct HomeScreen: View {
     @State var mapView = false
-    @State var selectedLocation: LocationActivity?
-    @State var data: [LocationActivity] = [
-        mockLocationActivity1,
-        mockLocationActivity2,
-        mockLocationActivity3
+    @State var selectedLocation: LocationSummary?
+    @State var data: [LocationSummary] = [
+        mockLocationSummary1,
+        mockLocationSummary2,
+        mockLocationSummary3
     ]
     @State var newUserActivityVisible = false
     

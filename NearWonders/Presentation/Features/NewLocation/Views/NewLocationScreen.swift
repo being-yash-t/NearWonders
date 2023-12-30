@@ -53,7 +53,13 @@ struct NewLocationScreen: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(bottomVisible ? "Done" : "Next") {
                         if bottomVisible {
-                            onComplete(Location(title: name, description: description, coordinates: location!))
+                            onComplete(Location(
+                                title: name,
+                                description: description,
+                                locationCoordinates: LocationCoordinates(location!),
+                                activities: activities,
+                                bestSeasons: seasons
+                            ))
                             presentationMode.wrappedValue.dismiss()
                         } else {
                             withAnimation {

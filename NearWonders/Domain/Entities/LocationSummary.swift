@@ -7,14 +7,14 @@
 
 import Foundation
 
-class LocationActivity: Identifiable {
+class LocationSummary: Identifiable {
     let id: UUID
     let title: String
     let date: Date
     let images: Set<String>
     let bookmarks: Int
     let activities: Set<Activity>
-    let location: Location
+    let locationCoordinates: LocationCoordinates
     
     init(
         id: UUID,
@@ -23,7 +23,7 @@ class LocationActivity: Identifiable {
         images: Set<String>,
         bookmarks: Int,
         activities: Set<Activity>,
-        location: Location
+        location: LocationCoordinates
     ) {
         self.id = id
         self.title = title
@@ -31,6 +31,6 @@ class LocationActivity: Identifiable {
         self.images = images
         self.bookmarks = bookmarks
         self.activities = activities
-        self.location = location
+        self.locationCoordinates = location
     }
 }

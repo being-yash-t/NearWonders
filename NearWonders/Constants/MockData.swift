@@ -20,7 +20,7 @@ let bikingActivity = Activity(name: "Biking", icon: "data:image/png;base64,iVBOR
 let mockActivities = [trekkingActivity, campingActivity, ridingActivity, bikingActivity]
 
 /// LocationActivity
-let mockLocationActivity1 = LocationActivity(
+let mockLocationSummary1 = LocationSummary(
     id: UUID(),
     title: "Bhandardara Dam",
     date: Date(),
@@ -31,14 +31,12 @@ let mockLocationActivity1 = LocationActivity(
     ],
     bookmarks: 40,
     activities: [campingActivity],
-    location: Location(
-        title: "GQW4+XWP, Near Ghoti Tal Akole, Dist. Ahamednagar, Maharashtra 422604",
-        description: nil,
+    location: LocationCoordinates(
         lat: 19.54738325316985,
         long: 73.7573012385777
     )
 )
-let mockLocationActivity2 = LocationActivity(
+let mockLocationSummary2 = LocationSummary(
     id: UUID(),
     title: "Devbag Beach",
     date: Date().addingTimeInterval(-6000),
@@ -53,14 +51,12 @@ let mockLocationActivity2 = LocationActivity(
         trekkingActivity,
         bikingActivity,
     ],
-    location: Location(
-        title: "Maharashtra",
-        description: nil,
+    location: LocationCoordinates(
         lat: 15.968600491744272,
         long: 73.5008954023122
     )
 )
-let mockLocationActivity3 = LocationActivity(
+let mockLocationSummary3 = LocationSummary(
     id: UUID(),
     title: "Harishchandragad",
     date: Date().addingTimeInterval(-3600000),
@@ -74,12 +70,10 @@ let mockLocationActivity3 = LocationActivity(
         campingActivity,
         ridingActivity,
     ],
-    location: Location(
-        title: "9QPH+H6 Diwanpada, Maharashtra",
-        description: nil,
+    location: LocationCoordinates(
         lat: 15.968600491744272,
         long: 73.5008954023122
     )
 )
 
-let mockLocationActivities = [mockLocationActivity1, mockLocationActivity2, mockLocationActivity3]
+let mockLocationActivities = [mockLocationSummary1, mockLocationSummary2, mockLocationSummary3]

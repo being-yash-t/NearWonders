@@ -8,53 +8,54 @@
 import SwiftUI
 
 struct FeedCard: View {
-    let activity: LocationActivity
+    let locationSummary: LocationSummary
     @State var saved = false
     
     var body: some View {
-        VStack(alignment: .leading) {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
-                    ForEach(activity.images.sorted(), id: \.self) { ImagePreview(imageUrl: $0) }
-                }.padding(.horizontal)
-            }
-            .allowsHitTesting(true)
-            
-            NavigationLink(destination: { LocationDetailsScreen(for: activity.location)}) {
+        NavigationLink(destination: { LocationDetailsScreen(for: locationSummary)}) {
+            VStack(alignment: .leading) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 16) {
+                        ForEach(locationSummary.images.sorted(), id: \.self) { ImagePreview(imageUrl: $0) }
+                    }.padding(.horizontal)
+                }
+                .allowsHitTesting(true)
+                
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(activity.title).font(.title3)
-                        Text(activity.date.formatted(date: .long, time: .omitted)).font(.footnote)
+                        Text(locationSummary.title).font(.title3)
+                        Text(locationSummary.date.formatted(date: .long, time: .omitted)).font(.footnote)
                     }
                     Spacer()
-                    Text((activity.bookmarks + (saved ? 1 : 0)).formatted())
+                    Text((locationSummary.bookmarks + (saved ? 1 : 0)).formatted())
                         .font(.footnote)
                         .onTapGesture { saved.toggle() }
-                        .foregroundColor(saved ? .blue : .black)
+                        .foregroundColor(saved ? .blue : .primary)
                     Image(systemName: saved ? "bookmark.fill": "bookmark")
                         .padding(.bottom, 2)
                         .onTapGesture { saved.toggle() }
-                        .foregroundColor(saved ? .blue : .black)
+                        .foregroundColor(saved ? .blue : .primary)
                 }.padding(.horizontal).padding(.top, 8)
-            }.buttonStyle(FlatButtonStyle())
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(activity.activities.sorted(by: {$0.name < $1.name})) {
-                        Tag(title: $0.name, iconUrl: $0.icon, color: Color(rgb: $0.rgbColor))
-                    }
-                }.padding([.horizontal])
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(locationSummary.activities.sorted(by: {$0.name < $1.name})) {
+                            Tag(title: $0.name, iconUrl: $0.icon, color: Color(rgb: $0.rgbColor))
+                        }
+                    }.padding([.horizontal])
+                }
             }
+            .padding(.bottom)
+            //        .shadow(color: .black.opacity(0.1), radius: 20)
+            //        .padding(.horizontal)
+            //        .padding(.vertical, 8)
         }
-        .padding(.bottom)
-        //        .shadow(color: .black.opacity(0.1), radius: 20)
-        //        .padding(.horizontal)
-        //        .padding(.vertical, 8)
+        .buttonStyle(FlatButtonStyle())
     }
 }
 
 #Preview {
-    FeedCard(activity: mockLocationActivity3)
+    FeedCard(locationSummary: mockLocationSummary3)
 }
 
 

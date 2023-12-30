@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct FeedScreen: View {
-    @Binding var data: [LocationActivity]
-    @Binding var selectedLocation: LocationActivity?
+    @Binding var data: [LocationSummary]
+    @Binding var selectedLocation: LocationSummary?
     
     var body: some View {
         ScrollView {
             // TODO: More efficent way for displaying for large data
             // TODO: automatically animate to selectedLocation
-            LazyVStack { ForEach(data) { FeedCard(activity: $0) } }
+            LazyVStack { ForEach(data) { FeedCard(locationSummary: $0) } }
         }
         .listStyle(.plain)
     }

@@ -54,6 +54,5 @@ struct Tag: View {
     VStack {
         Tag(title: trekkingActivity.name, iconUrl: trekkingActivity.icon, color: Color(rgb: trekkingActivity.rgbColor)).padding()
         Tag(title: Season.Winter.name, systemImage: Season.Winter.icon, color: Color(rgb: Season.Winter.rgbColor))
-        
     }
 }

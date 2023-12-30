@@ -27,15 +27,15 @@ struct NewUserActivityScreen: View {
                     NavigationLink(destination: NewLocationScreen(
                         name: location?.title ?? "",
                         description: location?.description ?? "",
-                        location: location?.coordinates,
+                        location: location?.locationCoordinates.coordinates,
                         onComplete: { location = $0 }
                     )) {
                         Map(interactionModes: [.pitch, .zoom]) {
                             if location != nil {
                                 if images.isEmpty {
-                                    Marker(location!.title, coordinate: location!.coordinates)
+                                    Marker(location!.title, coordinate: location!.locationCoordinates.coordinates)
                                 } else {
-                                    Annotation(location!.title, coordinate: location!.coordinates) {
+                                    Annotation(location!.title, coordinate: location!.locationCoordinates.coordinates) {
                                         CImage((images.first!))
                                     }
                                 }
@@ -46,9 +46,6 @@ struct NewUserActivityScreen: View {
                         .clipShape(.rect(cornerRadius: 16))
                         .padding([.bottom, .horizontal])
                     }
-                    .simultaneousGesture(TapGesture().onEnded({
-                        LocationManager.shared.requestLocationAuthorization()
-                    }))
                     
                     Text("Pictures").font(.headline).padding([.horizontal])
                     ImageUploader(images: $images)
@@ -132,7 +129,7 @@ struct ImageUploader: View {
                     }
                 }
                 if (images.count < 3) { AddImageButton(onTap: {
-                    images.insert(mockLocationActivity1.images.sorted()[images.count])
+                    images.insert(mockLocationSummary1.images.sorted()[images.count])
                 }) }
             }.padding(.horizontal)
         }.frame(height: previewImageSize)
