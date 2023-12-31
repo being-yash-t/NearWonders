@@ -35,7 +35,41 @@ struct ImagePreview: View {
     }
 }
 
+struct MapImagePreview: View {
+    let url: String
+    let onTap: (() -> Void)?
+    let size: CGFloat
+    
+    init(_ url: String, onTap: @escaping () -> Void, size: CGFloat = 50) {
+        self.url = url
+        self.onTap = onTap
+        self.size = size
+    }
+    
+    init(_ url: String, size: CGFloat = 50) {
+        self.url = url
+        self.onTap = nil
+        self.size = size
+    }
+    
+    var body: some View {
+        return AsyncImage(url: URL(string: url)) { image in
+            if (image.image != nil) {
+                image.image!.resizable()
+            } else {
+                Color.black.opacity(0.2)
+            }
+        }
+        .frame(width: size, height: size)
+        .clipShape(.rect(cornerRadius: 8))
+        .shadow(radius: 10)
+        .onTapGesture { onTap?() }
+    }
+}
 
 #Preview {
-    ImagePreview(imageUrl: "https://via.placeholder.com/200", size: 400)
+    VStack {
+        ImagePreview(imageUrl: "https://via.placeholder.com/200", size: kPreviewSize)
+        MapImagePreview("https://via.placeholder.com/200")
+    }
 }

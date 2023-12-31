@@ -36,7 +36,7 @@ struct NewUserActivityScreen: View {
                                     Marker(location!.title, coordinate: location!.locationCoordinates.coordinates)
                                 } else {
                                     Annotation(location!.title, coordinate: location!.locationCoordinates.coordinates) {
-                                        CImage((images.first!))
+                                        MapImagePreview(images.first!)
                                     }
                                 }
                             }
