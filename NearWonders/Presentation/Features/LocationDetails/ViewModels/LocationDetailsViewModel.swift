@@ -7,27 +7,8 @@
 
 import Foundation
 
-enum LocationDetailsTab: CaseIterable {
-    case overview
-    case feed
-    case pictures
-    
-    var name: String {
-        switch (self) {
-        case .overview:
-            "Overview"
-        case .feed:
-            "Feed"
-        case .pictures:
-            "Pictures"
-        }
-    }
-}
-
 class LocationDetailsViewModel: ObservableObject {
     @Published var details: LocationDetails?
-    
-    @Published var selectedTab: LocationDetailsTab = .overview
     
     init(loadFor location: LocationSummary) {
         details = LocationDetails(
