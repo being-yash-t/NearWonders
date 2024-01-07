@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileScreen: View {
     
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
         NavigationView {
@@ -25,8 +26,11 @@ struct ProfileScreen: View {
                         .padding(.trailing, 8)
                     
                     VStack(alignment: .leading) {
-                        Text("User Name").font(.headline)
-                        Text("User since May 2019").font(.subheadline).foregroundStyle(.primary.opacity(0.6))
+                        Text(authViewModel.user?.name ?? "-")
+                            .font(.headline)
+                        Text(authViewModel.user?.email ?? "-")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
                     }
                 }
                 
@@ -40,8 +44,10 @@ struct ProfileScreen: View {
                         dismiss()
                     }.foregroundColor(.red)
                     Button("Logout") {
-                        print("Logout")
-                        dismiss()
+                        Task {
+                            await authViewModel.signOut()
+                            dismiss()
+                        }
                     }
                 }
             }

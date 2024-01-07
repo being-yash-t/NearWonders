@@ -14,10 +14,10 @@ class URLLauncher {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: completion)
             } else {
-                throw Errors.canOpenUrlFailed
+                throw GenericError.canOpenUrlFailed
             }
         } else {
-            throw Errors.failedToParseUrl
+            throw GenericError.failedToParseUrl
         }
     }
 }

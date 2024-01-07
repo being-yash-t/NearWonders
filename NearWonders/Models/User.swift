@@ -10,8 +10,8 @@ import Foundation
 
 
 struct User {
-    let id: String?
-    let firstName: String
-    let lastName: String
-    let gender: Gender?
+    let email: String
+    let id: String
+    let name: String?
+//    let gender: Gender?
 }

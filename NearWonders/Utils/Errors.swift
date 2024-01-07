@@ -6,8 +6,16 @@
 //
 
 import Foundation
+import Amplify
 
-enum Errors: Error {
+enum GenericError: Error {
     case failedToParseUrl
+    case failedToParseData
     case canOpenUrlFailed
+}
+
+enum AuthenticationError: Error {
+    case noUserSignedIn
+    case signedOut
+    case unknown
 }
