@@ -38,7 +38,7 @@ final class AuthRepository: AuthRepositoryProtocol {
     }
     
     fileprivate func authenticationError(_ error: AuthError) -> AuthenticationError {
-        print("AuthError: \(error)")
+        print(error)
         if case .signedOut(_, _, _) = error {
             return AuthenticationError.noUserSignedIn
         } else if case .sessionExpired(_, _, _) = error {
