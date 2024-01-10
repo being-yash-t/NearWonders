@@ -30,12 +30,6 @@ struct HomeScreen: View {
                     .navigationTitle(mapView ? "Map" : "Feed")
                     .navigationBarTitleDisplayMode(mapView ? .inline : .automatic)
                     .toolbar(content: {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button(
-                                action: { mapView.toggle() },
-                                label: { Image(systemName: mapView ? "map.fill": "map") }
-                            )
-                        }
                         ToolbarItem(placement: .topBarLeading) {
                             Button(
                                 action: { profileVisible.toggle() },
@@ -43,12 +37,26 @@ struct HomeScreen: View {
                             )
                         }
                     })
-                
-                
-                Button(
-                    action: { newUserActivityVisible.toggle() },
-                    label: { Image(systemName: "plus.viewfinder") }
-                ).padding().background(.ultraThickMaterial).clipShape(.circle).padding(.trailing)
+                VStack {
+                    Button(
+                        action: { mapView.toggle() },
+                        label: { Image(systemName: mapView ? "map.fill": "map") }
+                    )
+                    .padding([.top, .horizontal])
+                    .padding(.bottom, 8)
+                    
+                    Divider().frame(width: 32)
+                    
+                    Button(
+                        action: { newUserActivityVisible.toggle() },
+                        label: { Image(systemName: "plus.viewfinder") }
+                    )
+                    .padding([.bottom, .horizontal])
+                    .padding(.top, 8)
+                }
+                .background(.ultraThinMaterial)
+                .clipShape(.rect(cornerRadius: 50))
+                .padding(.trailing)
             }
             .sheet(isPresented: $newUserActivityVisible) { NewUserActivityScreen() }
             .sheet(isPresented: $profileVisible) { ProfileScreen() }

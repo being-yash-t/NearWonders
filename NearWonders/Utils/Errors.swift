@@ -15,7 +15,26 @@ enum GenericError: Error {
 }
 
 enum AuthenticationError: Error {
+    case invalidCredentials
     case noUserSignedIn
-    case signedOut
-    case unknown
+    case unknown(message: String?)
+    
+    public var message: String {
+        switch self {
+        case .invalidCredentials:
+            return "Invalid Credentials"
+        case .noUserSignedIn:
+            return "No user signed in"
+        case .unknown(let message):
+            return message ?? "Unknown"
+        }
+    }
+}
+
+class ErrorMessage {
+    static func from(_ error : any Error) -> String {
+        if error is AuthenticationError {
+            return (error as! AuthenticationError).message
+        } else { return error.localizedDescription }
+    }
 }

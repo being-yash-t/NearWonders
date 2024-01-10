@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 import Amplify
 import AWSCognitoAuthPlugin
 
@@ -17,6 +18,8 @@ enum SignUpStep {
 protocol AuthRepositoryProtocol {
     var isSignedIn: Bool { get }
     
+    var signInStateChange: CurrentValueSubject<Bool, Never> { get }
+    
     func currentUser() async throws -> User
     func saveUserAttribute(name: String?, gender: Gender?) async throws 
     func signUp(username: String, password: String, email: String) async throws -> SignUpStep
@@ -27,9 +30,21 @@ protocol AuthRepositoryProtocol {
 
 final class AuthRepository: AuthRepositoryProtocol {
     
+    static let shared = AuthRepository()
+    
+    let signInStateChange: CurrentValueSubject<Bool, Never>
+    
+    private init() {
+        let isSignedIn = UserDefaults.standard.bool(forKey: UserDefaultsKey.isUserLoggedIn.rawValue)
+        signInStateChange = CurrentValueSubject<Bool, Never>(isSignedIn)
+    }
+    
     private(set) var isSignedIn: Bool {
         get { UserDefaults.standard.bool(forKey: UserDefaultsKey.isUserLoggedIn.rawValue) }
-        set { UserDefaults.standard.set(newValue, forKey: UserDefaultsKey.isUserLoggedIn.rawValue) }
+        set { 
+            UserDefaults.standard.set(newValue, forKey: UserDefaultsKey.isUserLoggedIn.rawValue)
+            signInStateChange.send(newValue)
+        }
     }
     
     func updateSignInStatus() async {
@@ -39,12 +54,14 @@ final class AuthRepository: AuthRepositoryProtocol {
     
     fileprivate func authenticationError(_ error: AuthError) -> AuthenticationError {
         print(error)
-        if case .signedOut(_, _, _) = error {
-            return AuthenticationError.noUserSignedIn
+        if case .validation(_, _, _, _) = error {
+            return .invalidCredentials
+        } else if case .signedOut(_, _, _) = error {
+            return .noUserSignedIn
         } else if case .sessionExpired(_, _, _) = error {
-            return AuthenticationError.noUserSignedIn
+            return .noUserSignedIn
         } else {
-            return AuthenticationError.unknown
+            return .unknown(message: error.errorDescription)
         }
     }
     
@@ -69,7 +86,7 @@ final class AuthRepository: AuthRepositoryProtocol {
             throw authenticationError(error)
         } catch {
             print("Unexpected error: \(error)")
-            throw AuthenticationError.unknown
+            throw AuthenticationError.unknown(message: error.localizedDescription)
         }
     }
     
@@ -99,7 +116,7 @@ final class AuthRepository: AuthRepositoryProtocol {
             throw authenticationError(error)
         } catch {
             print("Unexpected error: \(error)")
-            throw AuthenticationError.unknown
+            throw AuthenticationError.unknown(message: error.localizedDescription)
         }
     }
     
@@ -120,7 +137,7 @@ final class AuthRepository: AuthRepositoryProtocol {
             throw authenticationError(error)
         } catch {
             print("Unexpected error: \(error)")
-            throw AuthenticationError.unknown
+            throw AuthenticationError.unknown(message: error.localizedDescription)
         }
     }
 
@@ -140,7 +157,7 @@ final class AuthRepository: AuthRepositoryProtocol {
             throw authenticationError(error)
         } catch {
             print("Unexpected error: \(error)")
-            throw AuthenticationError.unknown
+            throw AuthenticationError.unknown(message: error.localizedDescription)
         }
     }
     
@@ -167,7 +184,7 @@ final class AuthRepository: AuthRepositoryProtocol {
         guard let signOutResult = result as? AWSCognitoSignOutResult
         else {
             print("Signout failed")
-            throw AuthenticationError.unknown
+            throw AuthenticationError.unknown(message: nil)
         }
         await updateSignInStatus()
         

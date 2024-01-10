@@ -12,7 +12,7 @@ import AWSCognitoAuthPlugin
 @main
 struct NearWondersApp: App {
     
-    @StateObject var authViewModel: AuthViewModel = AuthViewModel()
+    @StateObject var authViewModel = AuthViewModel(repository: AuthRepository.shared)
     
     init() {
         do {
@@ -26,9 +26,11 @@ struct NearWondersApp: App {
     
     var body: some Scene {
         WindowGroup {
-            (authViewModel.isSignedIn ? AnyView(HomeScreen()) : AnyView(LoginScreen()))
-                .environmentObject(authViewModel)
-                .onAppear { LocationManager.shared.requestLocationAuthorization() }
-        }
+            if authViewModel.isSignedIn {
+                HomeScreen().onAppear { LocationManager.shared.requestLocationAuthorization() }
+            } else {
+                LoginScreen()
+            }
+        }.environmentObject(authViewModel)
     }
 }

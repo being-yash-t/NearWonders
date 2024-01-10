@@ -14,18 +14,12 @@ enum LoginState {
 }
 
 struct LoginScreen: View {
-    @EnvironmentObject var viewModel: AuthViewModel
+    @StateObject var viewModel: LoginViewModel = LoginViewModel()
     
-    @State var email: String = ""
-    @State var password: String = ""
-    @State var confirmPassword: String = ""
-    @State var verificationCode: String = ""
-    @State var step: LoginState = .login
     @State var animateGradient = false
-    @State var error: String?
     
     var buttonTitle: String {
-        switch step {
+        switch viewModel.step {
         case .login:
             return "Login"
         case .registerUser:
@@ -43,7 +37,6 @@ struct LoginScreen: View {
                 endPoint: animateGradient ? .topTrailing : .bottom
             ).ignoresSafeArea()
             
-            
             VStack(spacing: 8) {
                 Spacer()
                 gradient.mask {  VStack {
@@ -60,30 +53,31 @@ struct LoginScreen: View {
                 
                 Spacer()
                 
-                if step == .login || step == .registerUser {
-                    TextField("Email", text: $email)
+                if viewModel.step == .login || viewModel.step == .registerUser {
+                    TextField("Email", text: $viewModel.email)
                         .textContentType(.emailAddress)
                         .keyboardType(.emailAddress)
-                    SecureField("Password", text: $password)
-                    if step == .registerUser {
-                        SecureField("Confirm Password", text: $confirmPassword)
+                    SecureField("Password", text: $viewModel.password)
+                    if viewModel.step == .registerUser {
+                        SecureField("Confirm Password", text: $viewModel.confirmPassword)
                     }
-                } else if step == .verificationPending {
-                    TextField("Verification Code", text: $verificationCode)
+                } else if viewModel.step == .verificationPending {
+                    TextField("Verification Code", text: $viewModel.verificationCode)
                 }
                 
                 TaskButton(action: onPressButton) {
                         Text(buttonTitle).frame(maxWidth: .infinity)
                 }
+                .disabled(!viewModel.validateCredentials)
                 .padding(.top, 8)
                 
-                if step == .login || step == .registerUser {
-                    let registerUser = step == .registerUser
+                if viewModel.step == .login || viewModel.step == .registerUser {
+                    let registerUser = viewModel.step == .registerUser
                     HStack {
                         Text(registerUser ? "Already have an account?" : "Don't have an account?").font(.callout)
                         Button(registerUser ? "Log In" :  "Sign Up") {
                             withAnimation(.easeInOut(duration: 0.2)) {
-                                step = registerUser ? .login : .registerUser
+                                viewModel.step = registerUser ? .login : .registerUser
                             }
                         }
                     }
@@ -96,8 +90,17 @@ struct LoginScreen: View {
             .font(.headline)
             .background(.thinMaterial)
             .background(gradient)
-            .alert(isPresented: Binding(get: {error != nil}, set: { if !$0 { error = nil } })) {
-                Alert(title: Text(error!))
+            .alert(isPresented: Binding(
+                get: {viewModel.errorTitle != nil},
+                set: { if !$0 {
+                    viewModel.errorTitle = nil
+                    viewModel.errorMessage = nil
+                } })
+            ) {
+                Alert(
+                    title: Text(viewModel.errorTitle!),
+                    message: viewModel.errorMessage != nil ? Text(viewModel.errorMessage!) : nil
+                )
             }
             .onAppear {
                 withAnimation(.easeInOut(duration: 10).repeatForever(autoreverses: true)) {
@@ -108,29 +111,13 @@ struct LoginScreen: View {
     }
     
     func onPressButton() async {
-        switch step {
+        switch viewModel.step {
         case .login:
-            await viewModel.signIn(email: email, password: password)
+            await viewModel.signIn()
         case .registerUser:
-            await viewModel.signUp(
-                email: email,
-                password: password,
-                onVerificationPending: { step = .verificationPending }
-            )
+            await viewModel.signUp()
         case .verificationPending:
-            await viewModel.verifySignUp(email: email, verificationCode: verificationCode)
-        }
-    }
-    
-    var validateCredentials: Bool {
-        // TODO: validate email
-        switch step {
-        case .registerUser:
-            return password == confirmPassword && !email.isEmpty && password.count > 6 && !password.contains(" ")
-        case .login:
-            return !email.isEmpty && password.count > 6 && !password.contains(" ")
-        case .verificationPending:
-            return !verificationCode.isEmpty && !verificationCode.contains(" ")
+            await viewModel.verifySignUp()
         }
     }
  

@@ -6,30 +6,41 @@
 //
 
 import Foundation
+import Combine
 import Amplify
 
 @MainActor
 class AuthViewModel: ObservableObject {
     let repository: AuthRepositoryProtocol
     
-    @Published var isSignedIn: Bool = false
+    var cancellables: Set<AnyCancellable> = []
+    
+    @Published var isSignedIn: Bool = false 
     
     @Published var user: User?
     
-    fileprivate func updateSignInStatus() {
+    fileprivate func setupSignedInStatus() {
         isSignedIn = repository.isSignedIn
-    }
-    
-    init() {
-        self.repository = AuthRepository()
-        updateSignInStatus()
-        if isSignedIn { Task { await currentUser() } }
+        repository.signInStateChange
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let self else { return }
+                
+                if self.isSignedIn != $0 {
+                    self.isSignedIn = $0
+                    if $0 { Task { await self.currentUser() } }
+                    else { self.user = nil }
+                }
+            }
+            .store(in: &cancellables)
     }
     
     init(repository: AuthRepositoryProtocol) {
         self.repository = repository
-        updateSignInStatus()
-        if isSignedIn { Task { await currentUser() } }
+        setupSignedInStatus()
+        if isSignedIn && user == nil {
+            Task { await currentUser() }
+        }
     }
     
     func currentUser() async {
@@ -37,51 +48,19 @@ class AuthViewModel: ObservableObject {
             user = try await repository.currentUser()
         } catch {
             print("Failed to fetch user data")
-            // TODO: notify failed to fetch current user
-        }
-    }
-    
-    func signIn(email: String, password: String) async {
-        do {
-            try await repository.signIn(username: email, password: password)
-            updateSignInStatus()
-            await currentUser()
-            // TODO: notify signin complete
-        } catch {
-            debugPrint("Failed to SignIn: ", error)
-            // TODO: notify signin failed
-        }
-    }
-    
-    func signUp(email: String, password: String, onVerificationPending: @escaping () -> Void) async {
-        do {
-            let result = try await repository.signUp(username: email, password: password, email: email)
-            switch result {
-            case .signedIn:
-                updateSignInStatus()
-            case .verificationPending:
-                onVerificationPending()
-            }
-        } catch {
-            // TODO: show error to user
-        }
-    }
-    
-    func verifySignUp(email: String, verificationCode: String) async {
-        do {
-            try await repository.verifySignUp(for: email, with: verificationCode)
-            if repository.isSignedIn { updateSignInStatus() }
-        } catch {
-            // TODO: show error to user
         }
     }
     
     func signOut() async {
         do {
             try await repository.signOut()
-            updateSignInStatus()
         } catch {
-            print("Failed to signout", error)
+            print("Failed to signOut")
         }
+    }
+    
+    deinit {
+        cancellables.forEach { $0.cancel() }
+        cancellables.removeAll()
     }
 }
