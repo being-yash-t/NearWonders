@@ -20,7 +20,10 @@ struct NewLocationScreen: View {
     
     @Environment(\.dismiss) var dismiss
     
-    var onComplete: (_: Location) -> Void
+    var onComplete: (_: LocationDetails) -> Void
+    
+    var seasonsAsStrings: [String] { seasons.map { $0.rawValue } }
+    var activitesAsStrings: [String] { activities.map { $0.rawValue } }
     
     var validateFrom: Bool {
         !name.isEmpty && !activities.isEmpty && !seasons.isEmpty
@@ -53,14 +56,7 @@ struct NewLocationScreen: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(bottomVisible ? "Done" : "Next") {
                         if bottomVisible {
-                            onComplete(Location(
-                                title: name,
-                                description: description,
-                                locationCoordinates: LocationCoordinates(location!),
-                                activities: activities,
-                                bestSeasons: seasons
-                            ))
-                            dismiss()
+                            Task { await createLocation() }
                         } else {
                             withAnimation {
                                 bottomVisible.toggle()
@@ -87,6 +83,29 @@ struct NewLocationScreen: View {
             
         }
     }
+    
+    func createLocation() async {
+//        let newLocation = LocationDetails(
+//            name: name,
+//            seasons: seasonsAsStrings,
+//            available_activity_types: activitesAsStrings,
+//            lat_long: [Double(location!.latitude), Double(location!.longitude)]
+//        )
+//        do {
+//            let result = try await Amplify.API.mutate(request: .create(newLocation))
+//            switch result {
+//            case .success(let location):
+//                onComplete(location)
+//                dismiss()
+//            case .failure(let graphQLError):
+//                print("Failed to create, graphql \(graphQLError)")
+//            }
+//        } catch let error as APIError {
+//            print("Failed to create: ", error)
+//        } catch {
+//            print("Unexpected error: \(error)")
+//        }
+    }
 }
 
 private struct BottomView: View {
@@ -111,9 +130,9 @@ private struct BottomView: View {
             }.padding([.horizontal, .top])
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack { ForEach(mockActivities) { item in
+                HStack { ForEach(Activity.allCases) { item in
                     SelectableTag(
-                        imageUrl: item.icon,
+                        imageUrl: item.iconData.rawValue,
                         title: item.name,
                         color: Color(rgb: item.rgbColor),
                         selected: Binding(get: {
@@ -134,7 +153,7 @@ private struct BottomView: View {
                 HStack { 
                     ForEach(Season.allCases) { item in
                         SelectableTag(
-                            systemImage: item.icon,
+                            systemImage: item.icon.rawValue,
                             title: item.name,
                             color: Color(rgb: item.rgbColor),
                             selected: Binding(get: {

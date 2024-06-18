@@ -9,26 +9,30 @@ import SwiftUI
 import Foundation
 
 struct HomeScreen: View {
-    @State var mapView = false
     @State var profileVisible = false
-    @State var selectedLocation: LocationSummary?
-    @State var data: [LocationSummary] = [
-        mockLocationSummary1,
-        mockLocationSummary2,
-        mockLocationSummary3
-    ]
     @State var newUserActivityVisible = false
     
+    @StateObject var viewModel: HomeScreenViewModel = .init()
+
     var body: some View {
-        let view = mapView
-        ? AnyView(MapScreen(data: $data, selectedLocation: $selectedLocation))
-        : AnyView(FeedScreen(data: $data, selectedLocation: $selectedLocation))
-        
         NavigationView {
             ZStack(alignment: .bottomTrailing) {
-                view
-                    .navigationTitle(mapView ? "Map" : "Feed")
-                    .navigationBarTitleDisplayMode(mapView ? .inline : .automatic)
+                VStack {
+                    if viewModel.errorMessage != nil && !viewModel.errorMessage!.isEmpty {
+                        Spacer()
+                        Text("Failed to get data").font(.callout).padding(.bottom, 8)
+                        Text(viewModel.errorMessage!).font(.caption).multilineTextAlignment(.center)
+                        Spacer()
+                    } else if viewModel.mapView {
+                        MapScreen(data: $viewModel.data, selectedLocation: $viewModel.selectedLocation)
+                            .transition(.slide)
+                    } else {
+                        FeedScreen(data: $viewModel.data, selectedLocation: $viewModel.selectedLocation)
+                            .transition(.slide)
+                    }
+                }
+                .navigationTitle(viewModel.mapView ? "Map" : "Feed")
+                    .navigationBarTitleDisplayMode(viewModel.mapView ? .inline : .automatic)
                     .toolbar(content: {
                         ToolbarItem(placement: .topBarLeading) {
                             Button(
@@ -39,8 +43,8 @@ struct HomeScreen: View {
                     })
                 VStack {
                     Button(
-                        action: { mapView.toggle() },
-                        label: { Image(systemName: mapView ? "map.fill": "map") }
+                        action: { viewModel.mapView.toggle() },
+                        label: { Image(systemName: viewModel.mapView ? "map.fill": "map") }
                     )
                     .padding([.top, .horizontal])
                     .padding(.bottom, 8)

@@ -40,7 +40,7 @@ struct FeedCard: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(locationSummary.activities.sorted(by: {$0.name < $1.name})) {
-                            Tag(title: $0.name, iconUrl: $0.icon, color: Color(rgb: $0.rgbColor))
+                            Tag(title: $0.name, iconUrl: $0.iconData.rawValue, color: Color(rgb: $0.rgbColor))
                         }
                     }.padding([.horizontal])
                 }

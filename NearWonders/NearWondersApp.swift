@@ -6,23 +6,11 @@
 //
 
 import SwiftUI
-import Amplify
-import AWSCognitoAuthPlugin
 
 @main
 struct NearWondersApp: App {
     
     @StateObject var authViewModel = AuthViewModel(repository: AuthRepository.shared)
-    
-    init() {
-        do {
-            try Amplify.add(plugin: AWSCognitoAuthPlugin())
-            try Amplify.configure()
-            print("Amplify configured with auth plugin")
-        } catch {
-            print("Failed to initialize Amplify with \(error)")
-        }
-    }
     
     var body: some Scene {
         WindowGroup {

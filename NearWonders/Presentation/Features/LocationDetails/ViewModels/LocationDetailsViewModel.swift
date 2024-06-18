@@ -15,7 +15,7 @@ class LocationDetailsViewModel: ObservableObject {
             title: location.title,
             description: "Test Description",
             locationCoordinates: location.locationCoordinates,
-            activities: [campingActivity, ridingActivity],
+            activities: [.Camp, .OffRoadTrail],
             bestSeasons: [Season.Spring, Season.Autumn],
             previewImages: mockLocationSummary1.images
         )

@@ -26,9 +26,9 @@ struct ProfileScreen: View {
                         .padding(.trailing, 8)
                     
                     VStack(alignment: .leading) {
-                        Text(authViewModel.user?.name ?? "-")
+                        Text(authViewModel.user?.fullName ?? "-")
                             .font(.headline)
-                        Text(authViewModel.user?.email ?? "-")
+                        Text(authViewModel.user?.userSince.ISO8601Format() ?? "-")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }

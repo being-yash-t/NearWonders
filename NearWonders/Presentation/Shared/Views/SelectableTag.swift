@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// TODO: use icons enum
 struct SelectableTag: View {
     let imageUrl: String?
     let systemImage: String?

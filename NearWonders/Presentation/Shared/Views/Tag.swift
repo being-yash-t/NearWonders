@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// TODO: move icon to Icons enum
 struct Tag: View {
     let title: String
     let iconUrl: String?
@@ -52,7 +53,7 @@ struct Tag: View {
 
 #Preview {
     VStack {
-        Tag(title: trekkingActivity.name, iconUrl: trekkingActivity.icon, color: Color(rgb: trekkingActivity.rgbColor)).padding()
-        Tag(title: Season.Winter.name, systemImage: Season.Winter.icon, color: Color(rgb: Season.Winter.rgbColor))
+        Tag(title: Activity.Trek.name, iconUrl: Activity.Trek.iconData.rawValue, color: Color(rgb: Activity.Trek.rgbColor)).padding()
+        Tag(title: Season.Winter.name, systemImage: Season.Winter.icon.rawValue, color: Color(rgb: Season.Winter.rgbColor))
     }
 }

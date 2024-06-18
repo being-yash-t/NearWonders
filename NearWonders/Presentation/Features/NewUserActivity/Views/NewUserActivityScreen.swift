@@ -14,7 +14,7 @@ struct NewUserActivityScreen: View {
     @State var images: Set<String> = []
     @State var description: String = ""
     @State var userActivities: [Activity] = []
-    @State var location: Location?
+    @State var location: LocationDetails?
     
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.dismiss) var dismiss
@@ -53,9 +53,9 @@ struct NewUserActivityScreen: View {
                     
                     Text("What activities did you perform?").font(.headline).padding([.horizontal])
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack { ForEach(mockActivities) { item in
+                        HStack { ForEach(Activity.allCases) { item in
                             SelectableTag(
-                                imageUrl: item.icon,
+                                imageUrl: item.iconData.rawValue,
                                 title: item.name,
                                 color: Color(rgb: item.rgbColor),
                                 selected: Binding(get: {

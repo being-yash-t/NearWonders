@@ -2,11 +2,10 @@
 //  Errors.swift
 //  NearWonders
 //
-//  Created by Jay Thakur on 31/12/23.
+//  Created by Jay Thakur on 17/06/24.
 //
 
 import Foundation
-import Amplify
 
 enum GenericError: Error {
     case failedToParseUrl
@@ -37,4 +36,12 @@ class ErrorMessage {
             return (error as! AuthenticationError).message
         } else { return error.localizedDescription }
     }
+}
+
+enum KeychainError: Error {
+    case dataConversionError
+    case itemAddError(status: OSStatus)
+    case itemCopyError(status: OSStatus)
+    case itemDeleteError(status: OSStatus)
+    case unknownError
 }

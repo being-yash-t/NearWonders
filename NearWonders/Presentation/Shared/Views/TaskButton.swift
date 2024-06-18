@@ -40,7 +40,7 @@ struct TaskButton<Content: View>: View {
 
 #Preview {
     TaskButton(action: {
-        try? await Task.sleep(seconds: 100)
+        try? await Task.sleep(nanoseconds: 3_000_000_000)
     }) { Text("Hola").frame(maxWidth: .infinity) }
         .buttonStyle(.borderedProminent) 
         .padding()

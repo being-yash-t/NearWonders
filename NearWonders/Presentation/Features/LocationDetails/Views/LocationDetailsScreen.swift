@@ -73,13 +73,13 @@ struct Overview: View {
             
             Text("Activities").font(.headline).padding(.horizontal).padding(.bottom, 4)
             HStack {
-                Tag(title: trekkingActivity.name, iconUrl: trekkingActivity.icon, color: Color(rgb: trekkingActivity.rgbColor))
+                Tag(title: Activity.Trek.name, iconUrl: Activity.Trek.iconData.rawValue, color: Color(rgb: Activity.Trek.rgbColor))
             }
             .padding([.horizontal])
             Text("Best Seasons to Visit").font(.headline).padding([.top, .horizontal]).padding(.bottom, 4)
             HStack {
                 ForEach(Season.allCases) { season in
-                    Tag(title: season.name, systemImage: season.icon, color: Color(rgb: season.rgbColor))
+                    Tag(title: season.name, systemImage: season.icon.rawValue, color: Color(rgb: season.rgbColor))
                 }
             }
             .padding([.horizontal])

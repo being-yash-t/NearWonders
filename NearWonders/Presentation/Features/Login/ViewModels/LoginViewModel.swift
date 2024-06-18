@@ -6,11 +6,11 @@
 //
 
 import Foundation
-import Amplify
 
 @MainActor
 class LoginViewModel: ObservableObject {
     
+    @Published var fullName: String = ""
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
@@ -51,7 +51,16 @@ class LoginViewModel: ObservableObject {
     
     func signUp() async {
         do {
-            let result = try await repository.signUp(username: email, password: password, email: email)
+            let nameComponents = fullName.split(separator: " ")
+            var firstName = ""
+            var lastName = ""
+
+            if nameComponents.count >= 2 {
+                firstName = String(nameComponents.first!)
+                lastName = nameComponents.dropFirst().joined(separator: " ")
+            }
+            
+            let result = try await repository.signUp(username: email, password: password, firstName: firstName, lastName: lastName)
             switch result {
             case .signedIn:
                 break

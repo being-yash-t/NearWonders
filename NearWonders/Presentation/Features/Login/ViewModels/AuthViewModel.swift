@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import Amplify
 
 @MainActor
 class AuthViewModel: ObservableObject {
@@ -15,12 +14,13 @@ class AuthViewModel: ObservableObject {
     
     var cancellables: Set<AnyCancellable> = []
     
-    @Published var isSignedIn: Bool = false 
+    @Published var isSignedIn: Bool = false
     
     @Published var user: User?
     
     fileprivate func setupSignedInStatus() {
-        isSignedIn = repository.isSignedIn
+        user = repository.currentUser()
+        isSignedIn = user != nil
         repository.signInStateChange
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
@@ -38,17 +38,10 @@ class AuthViewModel: ObservableObject {
     init(repository: AuthRepositoryProtocol) {
         self.repository = repository
         setupSignedInStatus()
-        if isSignedIn && user == nil {
-            Task { await currentUser() }
-        }
     }
     
     func currentUser() async {
-        do {
-            user = try await repository.currentUser()
-        } catch {
-            print("Failed to fetch user data")
-        }
+        user = repository.currentUser()
     }
     
     func signOut() async {
